@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS t_drone (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(200) NOT NULL,
+  model VARCHAR(100) DEFAULT NULL,
+  serial_no VARCHAR(100) DEFAULT NULL,
+  attributes_json TEXT,
+  remark VARCHAR(2000) DEFAULT NULL,
+  created_at DATETIME(0) NOT NULL,
+  updated_at DATETIME(0) NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE UNIQUE INDEX uk_drone_serial ON t_drone (serial_no);

@@ -1,0 +1,42 @@
+app:
+  datasource:
+    sqlite-path: ${DRONE_DB_PATH:./data/drone.db}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+  ai:
+    mode: mock
+    http-url: ""
+    http-bearer: ""
+
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  thymeleaf:
+    cache: false
+  datasource:
+    name: dronedb
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 1
+      min-idle: 1
+      max-active: 8
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:${app.datasource.sqlite-path}
+    platform: sqlite//数据库平台
+    initialization-mode: always
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.md.drone.domain
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com.md.drone: INFO

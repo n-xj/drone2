@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: "jdbc:sqlite::memory:"
+    platform: sqlite
+    driver-class-name: org.sqlite.JDBC
+    initialization-mode: always
+    name: testdrone
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      min-idle: 1
+      max-active: 2
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.md.drone.domain
+  configuration:
+    map-underscore-to-camel-case: true
+
+app:
+  ai:
+    mode: mock
+

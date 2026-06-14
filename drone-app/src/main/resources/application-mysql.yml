@@ -1,0 +1,15 @@
+# 使用方式: java -jar ... --spring.profiles.active=mysql
+# 需预先创建库并授权: CREATE DATABASE IF NOT EXISTS drone;
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/drone?useSSL=false&serverTimezone=UTC&characterEncoding=utf8
+    username: drone
+    password: "${MYSQL_DRONE_PASSWORD:drone}"
+    platform: mysql
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 1
+      min-idle: 1
+      max-active: 16
+    initialization-mode: always

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.md.drone.repository.mapper.DroneMapper"> 
+
+    <resultMap id="DroneResultMap" type="com.md.drone.domain.Drone">
+        <id property="id" column="id"/> 
+        <result property="name" column="name"/> 
+        <result property="model" column="model"/>
+        <result property="serialNo" column="serial_no"/>
+        <result property="attributesJson" column="attributes_json"/>
+        <result property="remark" column="remark"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, name, model, serial_no, attributes_json, remark, created_at, updated_at
+    </sql>
+
+    <insert id="insert" parameterType="com.md.drone.domain.Drone"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO t_drone (name, model, serial_no, attributes_json, remark, created_at, updated_at)
+        VALUES (#{name}, #{model}, #{serialNo}, #{attributesJson}, #{remark}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <update id="updateById" parameterType="com.md.drone.domain.Drone">
+        UPDATE t_drone
+        SET name = #{name},
+            model = #{model},
+            serial_no = #{serialNo},
+            attributes_json = #{attributesJson},
+            remark = #{remark},
+            updated_at = #{updatedAt}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM t_drone WHERE id = #{id}
+    </delete>
+
+    <select id="selectById" resultMap="DroneResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_drone
+        WHERE id = #{id}
+    </select>
+    
+   
+
+    <select id="selectList" resultMap="DroneResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_drone
+        <where>
+            <if test="nameLike != null">
+                name LIKE #{nameLike}
+            </if>
+        </where>
+        ORDER BY id DESC
+    </select>
+
+</mapper>
